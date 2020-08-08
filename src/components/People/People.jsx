@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import {componentPayload} from '../../data/componentPayload';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import {selectPeople} from './peopleSlice';
 import {Person} from './Person';
-import { useEffect } from 'react';
 
 export const People=()=>{
     const people = useSelector(selectPeople);
-return (<div>
+return (<div key={people.id}>
     {people.children.map((personInfo)=>(<Person person={personInfo}/>))}</div>)
 }
