@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { useAppSelector, useAppDispatch } from './hooks';
+import { useAppSelector, useAppDispatch } from "./hooks";
 import {
   decrement,
   increment,
@@ -8,33 +8,38 @@ import {
   incrementAsync,
   incrementIfOdd,
   selectCount,
-} from '../slices/counter/counterSlice';
-import styles from '../slices/counter/Counter.module.css';
+} from "../slices/counter/counterSlice";
+import styles from "../slices/counter/Counter.module.css";
 
-import styled from 'styled-components';
-import tw from "twin.macro";
+import tw, { styled, theme, css } from "twin.macro";
 
-  export const MoviesTitle = styled.h2`
-  ${tw`
-      text-2xl
-      font-bold
-      uppercase
-      mx-8
-      text-blue-800
-    `}
-    `;
-    
+export const MoviesTitle = styled.h2(({ iscolor }) => [ //twin.macro works in js
+  tw`hover:text-black`,
+  iscolor ? tw`text-blue-700` : tw`text-red-700`,
+]);
+
+export const TestTitle = styled(MoviesTitle)`
+  ${tw`hover:bg-black hover:text-white`}
+`;
+export const StyledButton = styled.button(({ isSecondary }) => [
+  // updated
+  tw`py-3 px-8 uppercase rounded border duration-200`,
+
+  isSecondary && tw`hover:text-black hover:bg-red-800`, // new
+]);
 export function Counter() {
   const count = useAppSelector(selectCount);
   const dispatch = useAppDispatch();
-  const [incrementAmount, setIncrementAmount] = useState('2');
+  const [incrementAmount, setIncrementAmount] = useState("2");
 
   const incrementValue = Number(incrementAmount) || 0;
 
   return (
     <div>
       <div className={styles.row}>
-        <MoviesTitle >hello</MoviesTitle>
+        <MoviesTitle iscolor="text-red-800">hello</MoviesTitle>
+        <TestTitle>hello</TestTitle>
+        <StyledButton isSecondary>Hello World!</StyledButton>
         <button
           className={styles.button}
           aria-label="Decrement value"
